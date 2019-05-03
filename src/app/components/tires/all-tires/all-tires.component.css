@@ -1,0 +1,21 @@
+table {
+  width: 100%;
+}
+
+th.mat-sort-header-sorted {
+  color: black;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+.table-container {
+  max-height: 62vh;
+  overflow: auto;
+}
+
+.mat-row:hover {
+  background-color: rgba(30, 136, 229, 0.1);
+}

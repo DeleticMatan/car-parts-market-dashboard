@@ -1,0 +1,12 @@
+<mat-dialog-content>
+  Da li ste sigurni da želite da obrišete ovog korisnika?
+</mat-dialog-content>
+<mat-dialog-actions align="center">
+  <mat-spinner *ngIf="showSpinner" [diameter]="helperService.spinnerDiameter"></mat-spinner>
+  <button *ngIf="!showSpinner" mat-raised-button color="primary" (click)="deleteUser()">
+    <mat-icon aria-label="Yes">check</mat-icon> Da
+  </button>
+  <button *ngIf="!showSpinner" mat-raised-button color="warn" mat-dialog-close class="m-l-5">
+    <mat-icon aria-label="Cancel">close</mat-icon> Odustani
+  </button>
+</mat-dialog-actions>

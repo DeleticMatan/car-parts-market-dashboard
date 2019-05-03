@@ -1,0 +1,171 @@
+<mat-card class="input-card">
+  <mat-card-content>
+    <mat-card-title>Gume</mat-card-title>
+    <mat-card-subtitle>Nov unos - <code>Gume</code></mat-card-subtitle>
+    <mat-card-content>
+      <mat-horizontal-stepper [linear]="isLinear">
+        <mat-step [stepControl]="stepControlTire">
+          <form [formGroup]="stepControlTire" autocomplete="on" novalidate fxLayout="column wrap">
+            <ng-template matStepLabel>Detalji oglasa</ng-template>
+
+            <mat-radio-group placeholder="Stanje*" class="m-t-10">
+              <mat-radio-button color="primary" [checked]="tire.condition === 'Polovno'" value="Polovno" (click)="setCondition('Polovno')">Polovno</mat-radio-button>
+              <mat-radio-button color="primary" [checked]="tire.condition === 'Novo'" value="Novo" (click)="setCondition('Novo')"
+                class="m-l-20">Novo</mat-radio-button>
+            </mat-radio-group>
+
+            <mat-form-field class="m-t-10">
+              <mat-select [(ngModel)]="tire.type" placeholder="Sezona*" [formControl]="type">
+                <mat-option *ngFor="let type of typeList" value="{{type}}">{{type}}</mat-option>
+              </mat-select>
+              <mat-error *ngIf="hasErrorTire('type', 'required')">Sezona je obavezno polje</mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-select [(ngModel)]="tire.diameter" placeholder="Prečnik" [formControl]="tireDiameter">
+                <mat-option *ngFor="let diameter of diameterList" value="{{diameter}}">{{diameter}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-select [(ngModel)]="tire.width" placeholder="Širina" [formControl]="width">
+                <mat-option *ngFor="let width of widthList" value="{{width}}">{{width}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-select [(ngModel)]="tire.height" placeholder="Visina" [formControl]="height">
+                <mat-option *ngFor="let height of heightList" value="{{height}}">{{height}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-select [(ngModel)]="tire.brand" placeholder="Marka" [formControl]="brand">
+                <mat-option *ngFor="let brand of brandList" value="{{brand}}">{{brand}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field>
+              <input matInput [(ngModel)]="tire.price" placeholder="Cena*" type="number" [formControl]="price">
+              <mat-error *ngIf="hasErrorTire('price', 'required')">Cena je obavezno polje</mat-error>
+            </mat-form-field>
+
+            <mat-card-actions align="center">
+              <button mat-raised-button color="warn" class="full-button" matStepperNext>
+                <mat-icon aria-label="Next">arrow_forward</mat-icon> Dalje
+              </button>
+              <button *ngIf="!showSpinner" mat-raised-button mat-dialog-close color="default">
+                <mat-icon aria-label="Nov unos">close</mat-icon> Odustani
+              </button>
+            </mat-card-actions>
+          </form>
+        </mat-step>
+
+        <mat-step [stepControl]="stepControlUser">
+          <form [formGroup]="stepControlUser" autocomplete="on" novalidate fxLayout="column wrap">
+            <ng-template matStepLabel>Detalji korisnika</ng-template>
+
+            <mat-form-field>
+              <input matInput [(ngModel)]="tire.name" placeholder="Ime" type="text" [formControl]="name">
+            </mat-form-field>
+
+            <mat-form-field>
+              <input matInput [(ngModel)]="tire.email" placeholder="E-mail*" [formControl]="email">
+              <mat-error *ngIf="hasErrorUser('email', 'required')">E-mail je obavezno polje</mat-error>
+              <mat-error *ngIf="hasErrorUser('email', 'email')">Nije validan E-mail format</mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+              <input matInput [(ngModel)]="tire.phone" placeholder="Telefon*" type="text" [formControl]="phone">
+              <mat-error *ngIf="hasErrorUser('phone', 'required')">Telefon je obavezno polje</mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+              <input matInput [(ngModel)]="tire.phone2" placeholder="Telefon 2" type="text" [formControl]="phone2">
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-select [(ngModel)]="tire.city" placeholder="Grad*" [formControl]="city">
+                <mat-option *ngFor="let city of cityList" value="{{city}}">{{city}}</mat-option>
+              </mat-select>
+              <mat-error *ngIf="hasErrorUser('city', 'required')">Grad je obavezno polje</mat-error>
+            </mat-form-field>
+
+            <mat-card-actions align="center">
+              <button mat-raised-button color="primary" class="half-button" matStepperPrevious>
+                <mat-icon aria-label="Next">arrow_back</mat-icon> Nazad
+              </button>
+              <button mat-raised-button color="warn" class="full-button" class="half-button m-l-5" matStepperNext>
+                <mat-icon aria-label="Next">arrow_forward</mat-icon> Napred
+              </button>
+              <button *ngIf="!showSpinner" mat-raised-button mat-dialog-close color="default">
+                <mat-icon aria-label="Nov unos ad">close</mat-icon> Odustani
+              </button>
+            </mat-card-actions>
+          </form>
+        </mat-step>
+
+        <mat-step [stepControl]="stepControlSettings">
+          <form [formGroup]="stepControlSettings" autocomplete="on" novalidate fxLayout="column wrap">
+            <ng-template matStepLabel>Dodatno</ng-template>
+
+            <div fxLayout="row" fxLayoutWrap="wrap">
+              <div *ngFor="let index of indexesFirst" fxFlex.gt-sm="33%" fxFlex="33" class="p-l-10 p-r-10">
+                <button mat-raised-button color="primary" class=" m-t-20 upload-btn" (click)="fileInputClick(index)">
+                  <mat-icon aria-label="Nov unos">cloud_upload</mat-icon> Dodaj sliku
+                </button>
+                <div class="img-container m-t-10">
+                  <span class="helper"></span>
+                  <img *ngIf="imgUrl[index]" [src]="imgUrl[index]" class="img-preview">
+                </div>
+                <input hidden type="file" (change)="onFileSelected($event, index)" id="{{index}}">
+              </div>
+            </div>
+
+            <div fxLayout="row" fxLayoutWrap="wrap">
+              <div *ngFor="let index of indexesSecond" fxFlex.gt-sm="33%" fxFlex="33" class="p-l-10 p-r-10">
+                <button mat-raised-button color="primary" class=" m-t-20 upload-btn" (click)="fileInputClick(index)">
+                  <mat-icon aria-label="Nov unos">cloud_upload</mat-icon> Dodaj sliku
+                </button>
+                <div class="img-container m-t-10">
+                  <span class="helper"></span>
+                  <img *ngIf="imgUrl[index]" [src]="imgUrl[index]" class="img-preview">
+                </div>
+                <input hidden type="file" (change)="onFileSelected($event, index)" id="{{index}}">
+              </div>
+            </div>
+
+            <mat-form-field class="m-t-15">
+              <textarea matInput matAutosizeMinRows=4 matAutosizeMaxRows=25 [(ngModel)]="tire.text" placeholder="Tekst oglasa"
+                [formControl]="text"></textarea>
+            </mat-form-field>
+
+            <mat-form-field>
+              <input matInput [(ngModel)]="tire.expires" placeholder="Ističe*" type="number" [formControl]="expires">
+            </mat-form-field>
+
+            <mat-slide-toggle color="primary" class="m-t-20" [checked]="this.tire.highlight" [disabled]="false"
+              (change)="highlightChanged()">Istaknut</mat-slide-toggle>
+
+            <mat-slide-toggle color="primary" class="m-t-20" [checked]="this.tire.active" [disabled]="true" (change)="activeChanged()">Aktivan</mat-slide-toggle>
+
+            <mat-card-actions align="center">
+              <mat-spinner *ngIf="showSpinner" [diameter]="helperService.spinnerDiameter"></mat-spinner>
+              <button *ngIf="!showSpinner" mat-raised-button color="primary" class="half-button" matStepperPrevious>
+                <mat-icon aria-label="Next">arrow_back</mat-icon> Back
+              </button>
+              <button *ngIf="!showSpinner" mat-raised-button color="warn" [disabled]="!stepControlSettings.valid"
+                (click)="saveTire()">
+                <mat-icon aria-label="Nov unos ad">save</mat-icon> Save
+              </button>
+              <button *ngIf="!showSpinner" mat-raised-button mat-dialog-close color="default">
+                <mat-icon aria-label="Nov unos">close</mat-icon> Odustani
+              </button>
+            </mat-card-actions>
+          </form>
+        </mat-step>
+
+      </mat-horizontal-stepper>
+    </mat-card-content>
+  </mat-card-content>
+</mat-card>

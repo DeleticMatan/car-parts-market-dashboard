@@ -1,0 +1,36 @@
+<mat-card>
+  <mat-card-content>
+    <mat-card-title>Detalji korisnika</mat-card-title>
+    <mat-card-subtitle>Lista - <code> Korisnik: {{ userService.user?.name }}</code></mat-card-subtitle>
+    <mat-accordion>
+
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Delovi / Oprema
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <app-all-ads [detailsView]="true"></app-all-ads>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Gume
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <app-all-tires [detailsView]="true"></app-all-tires>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Felne i ratkapne
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <app-all-rims [detailsView]="true"></app-all-rims>
+      </mat-expansion-panel>
+
+    </mat-accordion>
+  </mat-card-content>
+</mat-card>

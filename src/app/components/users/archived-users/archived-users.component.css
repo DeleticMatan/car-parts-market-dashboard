@@ -1,0 +1,13 @@
+table {
+  width: 100%;
+}
+
+.table-container {
+  width: 98%;
+  margin: 0 auto 20px auto;
+}
+
+.user-details-link {
+  cursor: pointer;
+  color: #1E88E5;
+}

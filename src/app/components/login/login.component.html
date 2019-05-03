@@ -1,0 +1,77 @@
+<div class="main-container">
+  <mat-toolbar color="primary" class="topbar telative">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/button">
+        <b>
+          <img src="assets/images/logo.png" alt="homepage" class="light-logo">
+        </b>
+      </a>
+    </div>
+  </mat-toolbar>
+  <mat-sidenav-container class="admin-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 0 : 0">
+
+    <mat-sidenav-content class="page-wrapper">
+
+      <div class="page-content">
+
+        <div fxLayout="row" fxLayoutWrap="wrap">
+
+          <div fxFlex.gt-sm="100%" fxFlex="100">
+            <mat-card>
+              <mat-card-content>
+                <mat-card-title><span class="title">Login</span></mat-card-title>
+                <mat-horizontal-stepper [linear]="isLinear">
+                  <mat-step [stepControl]="emailFormGroup">
+                    <form [formGroup]="emailFormGroup">
+                      <ng-template matStepLabel>E-mail*</ng-template>
+                      <mat-form-field>
+                        <input #emailInput matInput placeholder="E-mail" [(ngModel)]="email" formControlName="email"
+                          required>
+                        <mat-error *ngIf="hasErrorEmail('email', 'required')">E-mail je obavezno polje</mat-error>
+                        <mat-error *ngIf="hasErrorEmail('email', 'email')">Nije validan E-mail format</mat-error>
+                      </mat-form-field>
+                      <mat-card-actions align="center">
+                        <button mat-raised-button color="warn" class="full-button" matStepperNext>
+                          <mat-icon aria-label="Next">arrow_forward</mat-icon> Sledeće
+                        </button>
+                      </mat-card-actions>
+                    </form>
+                  </mat-step>
+                  <mat-step [stepControl]="passwordFormGroup">
+                    <form [formGroup]="passwordFormGroup">
+                      <ng-template matStepLabel>Lozinka*</ng-template>
+                      <mat-form-field>
+                        <input #passwordInput matInput type="password" placeholder="Lozinka" [(ngModel)]="password"
+                          formControlName="password" required>
+                        <mat-error *ngIf="hasErrorPassword('password', 'required')">Lozinka je obavezno polje</mat-error>
+                      </mat-form-field>
+                      <mat-card-actions align="center">
+                        <mat-spinner *ngIf="showSpinner" [diameter]="helperService.spinnerDiameter"></mat-spinner>
+                        <button *ngIf="!showSpinner" mat-raised-button color="primary" class="half-button"
+                          matStepperPrevious>
+                          <mat-icon aria-label="Next">arrow_back</mat-icon> Nazad
+                        </button>
+                        <button *ngIf="!showSpinner" mat-raised-button color="warn" class="half-button m-l-5"
+                          matStepperNext (click)="login()">
+                          <mat-icon aria-label="Login">check</mat-icon> Prijavi se
+                        </button>
+                      </mat-card-actions>
+                    </form>
+                  </mat-step>
+                </mat-horizontal-stepper>
+
+              </mat-card-content>
+
+            </mat-card>
+          </div>
+        </div>
+
+        <router-outlet>
+          <app-spinner></app-spinner>
+        </router-outlet>
+
+      </div>
+
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

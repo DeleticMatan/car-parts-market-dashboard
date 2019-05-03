@@ -1,0 +1,71 @@
+<mat-card class="input-card">
+  <mat-card-content>
+    <mat-card-title>Korisnici</mat-card-title>
+    <mat-card-subtitle>Nov unos - <code>Korisnik</code></mat-card-subtitle>
+    <form [formGroup]="addUserForm" autocomplete="on" novalidate (ngSubmit)="saveUser()" fxLayout="column wrap"
+      fxLayoutAlign="center center">
+      <mat-card-content>
+        <mat-form-field hintLabel="Možete da unesete najviše 50 karaktera">
+          <input matInput [(ngModel)]="user.name" #input maxlength="50" placeholder="Ime i prezime*" [formControl]="name">
+          <mat-hint align="end">{{input.value?.length || 0}}/50</mat-hint>
+          <mat-error *ngIf="hasError('name', 'required')">Ime je obavezno polje</mat-error>
+          <mat-error *ngIf="hasError('name', 'maxlength')">Uneli ste više od 50 karaktera</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput [(ngModel)]="user.address" placeholder="Adresa*" [formControl]="address">
+          <mat-error *ngIf="hasError('address', 'required')">Adresa je obavezno polje</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-select [(ngModel)]="user.city" placeholder="Grad*" [formControl]="city">
+            <mat-option value="Beograd">Beograd</mat-option>
+            <mat-option value="Jagodina">Jagodina</mat-option>
+            <mat-option value="Kragujevac">Kragujevac</mat-option>
+            <mat-option value="Nis">Niš</mat-option>
+            <mat-option value="Subotica">Subotica</mat-option>
+            <mat-option value="Novi Sad">Novi Sad</mat-option>
+            <mat-option value="Leskovac">Leskovac</mat-option>
+          </mat-select>
+          <mat-error *ngIf="hasError('city', 'required')">Grad je obavezno polje</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput [(ngModel)]="user.phone" placeholder="Telefon*" type="text" [formControl]="phone">
+          <mat-error *ngIf="hasError('phone', 'required')">Telefon je obavezno polje</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput [(ngModel)]="user.phone2" placeholder="Telefon 2" type="text" [formControl]="phone2">
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput [(ngModel)]="user.email" placeholder="E-mail*" [formControl]="email">
+          <mat-error *ngIf="hasError('email', 'required')">E-mail je obavezno polje</mat-error>
+          <mat-error *ngIf="hasError('email', 'email')">Nije validan E-mail format</mat-error>
+        </mat-form-field>
+
+        <mat-form-field hintLabel="Min 8 characters">
+          <input matInput [(ngModel)]="user.password" placeholder="Unesite svoju lozinku*" minlength="8" [type]="hidePassword ? 'password' : 'text'"
+            [formControl]="password">
+          <mat-icon matSuffix (click)="hidePassword = !hidePassword">{{this.hidePassword ? 'visibility_off' :
+            'visibility'}}</mat-icon>
+          <mat-error *ngIf="hasError('password', 'required')">Lozinka je obavezno polje</mat-error>
+          <mat-error *ngIf="hasError('password', 'minlength')">Lozinka mora da sadrži bar 8 karaktera</mat-error>
+          <mat-error *ngIf="emailTaken">Ovaj e-mail je zauzet</mat-error>
+        </mat-form-field>
+
+        <mat-slide-toggle color="primary" class="m-t-20" [checked]="this.user.active" [disabled]="true" (change)="activeChanged()">Aktivan</mat-slide-toggle>
+      </mat-card-content>
+      <mat-card-actions align="center">
+        <mat-spinner *ngIf="showSpinner" [diameter]="helperService.spinnerDiameter"></mat-spinner>
+        <button *ngIf="!showSpinner" mat-raised-button color="primary" [disabled]="!addUserForm.valid">
+          <mat-icon aria-label="Nov unos user">save</mat-icon> Sačuvaj
+        </button>
+        <button *ngIf="!showSpinner" mat-raised-button mat-dialog-close color="warn" class="m-l-5">
+          <mat-icon aria-label="Nov unos user">close</mat-icon> Odustani
+        </button>
+      </mat-card-actions>
+    </form>
+  </mat-card-content>
+</mat-card>

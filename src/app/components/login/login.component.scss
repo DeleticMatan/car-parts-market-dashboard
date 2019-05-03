@@ -1,0 +1,41 @@
+mat-card {
+  max-width: 500px;
+  max-height: 270px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+mat-card-content {
+  padding: 0 !important;
+}
+
+mat-card-title {
+  text-align: center;
+  background-color: #1E88E5;
+  color: white;
+  height: 60px;
+  display: inline-block;
+  width: 100%;
+}
+
+mat-spinner {
+  margin: auto;
+}
+
+span.title {
+  display: inline-block;
+  vertical-align: middle;
+  margin-top: 18px;
+}
+
+button.full-button {
+  width: 100%;
+}
+
+button.half-button {
+  width: 48%;
+}

@@ -1,0 +1,9 @@
+<button [matMenuTriggerFor]="profile" mat-icon-button class="m-l-5 m-r-5">
+  <img src="assets/images/favicon.png" alt="user" class="profile-pic">
+</button>
+
+<mat-menu #profile="matMenu" class="mymegamenu">
+  <button mat-menu-item (click)=logout()>
+    <mat-icon>exit_to_app</mat-icon> Odjavi se
+  </button>
+</mat-menu>

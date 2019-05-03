@@ -1,0 +1,15 @@
+<mat-card>
+  <mat-card-content>
+    <mat-card-title *ngIf="!detailsView">Vozila</mat-card-title>
+    <mat-card-subtitle *ngIf="!detailsView">Lista - <code>Vozila</code></mat-card-subtitle>
+
+    <mat-tab-group class="m-t-10" (selectedTabChange)="onTabChange($event)">
+      <mat-tab label="Aktivni">
+        <app-active-ads [visible]="visibleActive" [detailsView]="detailsView"></app-active-ads>
+      </mat-tab>
+      <mat-tab label="Arhivirani">
+        <app-archived-ads [visible]="visibleArchived" [detailsView]="detailsView"></app-archived-ads>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-card-content>
+</mat-card>

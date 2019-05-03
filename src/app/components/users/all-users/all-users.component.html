@@ -1,0 +1,15 @@
+<mat-card>
+  <mat-card-content>
+    <mat-card-title>Korisnici</mat-card-title>
+    <mat-card-subtitle>Lista - <code>Korisnici</code></mat-card-subtitle>
+
+    <mat-tab-group class="m-t-10" (selectedTabChange)="onTabChange($event)">
+      <mat-tab label="Aktivni">
+        <app-active-users [visible]="visibleActive"></app-active-users>
+      </mat-tab>
+      <mat-tab label="Arhivirani">
+        <app-archived-users [visible]="visibleArchived"></app-archived-users>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-card-content>
+</mat-card>

@@ -1,0 +1,55 @@
+<button mat-raised-button color="primary" class="m-t-20" (click)="this.goToAddRim()">
+  <mat-icon aria-label="Nov unos">add_circle</mat-icon> Nov unos
+</button>
+
+<mat-form-field class="m-t-10">
+  <input matInput (keyup)="this.applyFilter($event.target.value)" placeholder="Pretraga">
+</mat-form-field>
+
+<div class="table-container mat-elevation-z8 m-t-10">
+  <mat-progress-bar *ngIf="this.loading" mode="indeterminate" value="40"></mat-progress-bar>
+  <table mat-table [dataSource]="dataSource" matSort>
+
+    <ng-container matColumnDef="type">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Tip </th>
+      <td mat-cell *matCellDef="let element"> {{element.type}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="brand">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Marka </th>
+      <td mat-cell *matCellDef="let element"> {{element.brand}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="diameter">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Prečnik </th>
+      <td mat-cell *matCellDef="let element"> {{element.diameter}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="width">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Širina </th>
+      <td mat-cell *matCellDef="let element"> {{element.width}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Akcije </th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-mini-fab color="accent" matTooltip="Izmeni oglas" matTooltipPosition="above" (click)="this.goToEditRim(element.id)">
+          <mat-icon aria-label="Edit">edit</mat-icon>
+        </button>
+        <button mat-mini-fab color="primary" matTooltip="Aktiviraj oglas" matTooltipPosition="above" (click)="this.openConfirmationActivate(element.id)"
+          class="m-l-5">
+          <mat-icon aria-label="Edit">archive</mat-icon>
+        </button>
+        <button mat-mini-fab color="warn" matTooltip="Obriši oglas" matTooltipPosition="above" (click)="this.openConfirmationDelete(element.id)"
+          class="m-l-5">
+          <mat-icon aria-label="Edit">delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[10, 20, 50]" showFirstLastButtons></mat-paginator>
+</div>
